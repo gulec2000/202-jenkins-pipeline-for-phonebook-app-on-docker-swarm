@@ -1,14 +1,13 @@
 AWSTemplateFormatVersion: 2010-09-09
-
+​
 Description: |
   This Cloudformation template creates a phonebook application web application developed in Python Flask , deployed with Docker Swarm on Elastic Compute Cloud (EC2) Instances by pulling the app images from the AWS Elastic Container Registry (ECR) repository
-
 Parameters:
   KeyPairName:
     Description: Enter name of your key pair for SSH Connections
     Type: AWS::EC2::KeyPair::KeyName
     ConstraintDescription: Must be one of the existing KeyPairs 
-
+​
 Resources:
   InstanceConnectPolicy:
     Type: "AWS::IAM::ManagedPolicy"
@@ -187,26 +186,10 @@ Resources:
               mkdir -p /home/ec2-user/.docker
               cd /home/ec2-user/.docker
               echo '{"credsStore": "ecr-login"}' > config.json
-              aws ecr create-repository \
-                --repository-name ${APP_REPO_NAME}
-                --image-scanning-configuration scanOnPush=false \
-                --image-tag-immutability MUTABLE \
-                --region ${AWS::Region}
-              docker build --force-rm -t "${ECR_REGISTRY}/${APP_REPO_NAME}:latest" ${GITHUB_REPO}
-              docker push "${ECR_REGISTRY}/${APP_REPO_NAME}:latest"
-              mkdir -p /home/ec2-user/phonebook
-              cd /home/ec2-user/phonebook
-              cat << EOF | tee .env
-              ECR_REGISTRY=${ECR_REGISTRY}
-              APP_REPO_NAME=${APP_REPO_NAME}
-              EOF
-              curl -o "docker-compose.yaml" -L ${GIT_FILE_URL}"docker-compose.yaml"
-              curl -o "init.sql" -L ${GIT_FILE_URL}"init.sql"
-              docker-compose config | docker stack deploy --with-registry-auth -c - phonebook
             - ECR_REGISTRY: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com
               APP_REPO_NAME: clarusway-repo/phonebook-app
-              GITHUB_REPO: https://github.com/gulec2000/202-jenkins-pipeline-for-phonebook-app-on-docker-swarm.git
-
+              GITHUB_REPO: https://github.com/Musti4096/aws_devops_workshop.git
+​
   DockerManager2:
     Type: "AWS::EC2::Instance"
     DependsOn:
