@@ -157,7 +157,7 @@ Resources:
         - Key: Name
           Value: !Sub Docker Grand Master of ${AWS::StackName}
         - Key: project
-          Value: "203"
+          Value: "202"
       UserData:
         Fn::Base64: 
           !Sub 
@@ -205,7 +205,7 @@ Resources:
               docker-compose config | docker stack deploy --with-registry-auth -c - phonebook
             - ECR_REGISTRY: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com
               APP_REPO_NAME: clarusway-repo/phonebook-app
-              GITHUB_REPO: https://github.com/james-scofield/dockerswarmproject.git
+              GITHUB_REPO: https://github.com/gulec2000/202-jenkins-pipeline-for-phonebook-app-on-docker-swarm.git
 
   DockerManager2:
     Type: "AWS::EC2::Instance"
