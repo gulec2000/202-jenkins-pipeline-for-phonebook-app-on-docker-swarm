@@ -11,3 +11,9 @@ A- Infrasructure
 B- Application Deployment
     - Dockerfile
     - docker-compose.yml (Web server and Mysql)
+C- Jenkins Server should be capable of
+    - creating ECR Repository
+    - building docker image
+    - pushing Docker Imageto ECR Repository
+    - creating infrastructure for Athe Application
+    - Deploying the Application
